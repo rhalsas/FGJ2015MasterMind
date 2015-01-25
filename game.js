@@ -41,18 +41,19 @@ $(document).ready(function() {
                 var i = 0;
                 context.clearRect(0, 0, 800, 600);
                 for (var player in playerdata) {
-                        if (player == "player1") {
-                                var pos_x = playerdata[player].x;
-                                var pos_y = playerdata[player].y;
-                        }
-                        context.fillStyle = "#FFF";
-                        context.fillText(player, i*75+10, 10);
-                        context.fillText(playerdata[player].hp, i*75+60, 10);
-                        i++;
-                }
-                
-                context.drawImage(player1Image,((pos_x / 6400) * 800) - 32,((pos_y / 4800) * 600) - 32);
+                    if (player == "player1") {
+                        var pos_x = playerdata[player].x;
+                        var pos_y = playerdata[player].y;
 
+                        context.drawImage(player1hp, 250, 2, playerdata[player].hp, 24);
+                        context.drawImage(player1Image,((pos_x / 6400) * 800) - 32,((pos_y / 4800) * 600) - 32);
+                    }
+                    else{
+                        context.drawImage(player2hp, 370, 2, playerdata[player].hp, 24);
+                    }
+                }
+                context.drawImage(player1Image,225,12,24,24);
+                context.drawImage(player2Image,350,12,24,24);
         }
         $( ".monster" ).on( "click", function() {
                 d = new Date();
