@@ -2,12 +2,38 @@
 	background: url("spawn_melee_green.png");
 	height: 64px;
 	width: 64px;
+	display: inline-block;
 }
 #monster2 {
 	background: url("spawn_ranged_green.png");
 	height: 64px;
 	width: 64px;
+	display: inline-block;
 }
 #levelmap {
 	background: url("level_blueprint.png");
+}
+
+#nick2 {
+	height:64px;
+}
+
+#container {
+	width: 600px;
+	max-height: 64px;
+	display: block;
+	margin:5px;
+}
+
+
+#roominput {
+	vertical-align: top;
+	height:64px;
+	display: inline-block;
+	font-size: 24px;
+}
+
+li {
+	margin:6px;
+
 }

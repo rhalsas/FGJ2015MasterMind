@@ -38,8 +38,11 @@ if (!isset($_GET['s'])) {
 	<body>
 	<?php if (!isset($_GET['s'])): ?>
 	<div id="nickerror"></div>
-	Nick: <input type=text id="nick2" value="doge"/>
-	Current game sessions:
+	<p>
+	Please write your nick here before entering session (characters a-z and 0-9):
+	</p>
+	Nick: <input type=text id="nick2" value="doge"/><br/>
+	Last game sessions:
 		<ul>
 			<?php
 				// Show available game sessions
@@ -62,10 +65,23 @@ if (!isset($_GET['s'])) {
 	<?php endif;
 	if (isset($_GET['s']) && isset($_GET['nick'])): ?>
 	Your name: <div id="nick"><?php echo $_GET['nick']; ?></div>
-	Room: <input type=text value="1" id="roominput"/>
-
+	<p>Select spawn point and press the enemy type you want to spawn to the game</p>
+	<div id="container">
+	<select id="roominput" name="roomselect">
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+		<option>5</option>
+		<option>6</option>
+		<option>7</option>
+		<option>8</option>
+		<option>9</option>
+		<option>10</option>
+	</select>
 	<button value="1" id="monster1" class="monster"></button>
 	<button value="2" id="monster2" class="monster"></button>
+	</div>
 	<div id="error"></div>
 	<canvas id="levelmap" width="800" height="600"></canvas>
 	<script src="game.js"></script>
