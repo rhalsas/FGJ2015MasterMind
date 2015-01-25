@@ -55,6 +55,15 @@ $(document).ready(function() {
                 var timenow = d.getTime();
                 var nick = $("#nick").text();
                 var roominput = $("#roominput").val();
+                if (roominput != roominput.replace(/[^0-9]/gi,'')) {
+                    $("#error").html("Pls, spawn point must be a number between 1 and 10");
+                    return;
+                } else {
+                    if (Number(roominput) > 10) {
+                        $("#error").html("Pls, spawn point must be a number between 1 and 10");
+                        return;
+                    } 
+                }
                 var enemytype = $(this).val();
                 if (timenow - timethen > 3000) {
                         $("#error").html(" ");
@@ -63,7 +72,7 @@ $(document).ready(function() {
                                 type: 'POST',
                                 data: "sessionId=" + sessionid + "&room=" + roominput + "&type=" + enemytype + "&nick=" + nick,
                                 success: function(data){
-                                        console.log("insert successful");
+                                    console.log("insert successful");
                                 }
                         });
                         d = new Date();

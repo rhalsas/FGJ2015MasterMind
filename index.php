@@ -37,6 +37,7 @@ if (!isset($_GET['s'])) {
 	</head>
 	<body>
 	<?php if (!isset($_GET['s'])): ?>
+	<div id="nickerror"></div>
 	Nick: <input type=text id="nick2" value="doge"/>
 	Current game sessions:
 		<ul>
@@ -51,7 +52,11 @@ if (!isset($_GET['s'])) {
 		<script>
 			$( ".sid" ).on( "click", function() {
 				var nicktest = $('#nick2').val();
-				window.location.assign("?nick=" + nicktest + "&s=" + $(this).text());
+				if (nicktest == nicktest.replace(/[^a-z0-9]/gi,'')) {
+					window.location.assign("?nick=" + nicktest + "&s=" + $(this).text());
+				} else {
+					$("#nickerror").html("Pls check your nick, characters must be between a-z and 0-9");
+				}
 			});
 		</script>
 	<?php endif;
