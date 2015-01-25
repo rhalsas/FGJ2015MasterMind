@@ -37,16 +37,23 @@ if (!isset($_GET['s'])) {
 	</head>
 	<body>
 	<?php if (!isset($_GET['s'])): ?>
+	Nick: <input type=text id="nick2" value="doge"/>
 	Current game sessions:
 		<ul>
 			<?php
 				// Show available game sessions
 				foreach ($sessionarray as $session)
 				{
-					?><li><a href='<?php echo "?s=" . $session["session_id"];?>'><?php echo $session['session_id'];?></a></li><?php
+					?><li><button class="sid"><?php echo $session["session_id"];?></button></li><?php
 				}
 			?>
 		</ul>
+		<script>
+			$( ".sid" ).on( "click", function() {
+				var nicktest = $('#nick2').val();
+				window.location.assign("?nick=" + nicktest + "&s=" + $(this).text());
+			});
+		</script>
 	<?php endif;
 	if (isset($_GET['s']) && isset($_GET['nick'])): ?>
 	Your name: <div id="nick"><?php echo $_GET['nick']; ?></div>
