@@ -1,0 +1,13 @@
+#monster1 {
+	background: url("spawn_melee_green.png");
+	height: 64px;
+	width: 64px;
+}
+#monster2 {
+	background: url("spawn_ranged_green.png");
+	height: 64px;
+	width: 64px;
+}
+#levelmap {
+	background: url("level_blueprint.png");
+}
