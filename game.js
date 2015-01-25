@@ -23,14 +23,9 @@ $(document).ready(function() {
                         type: 'POST',
                         data: "sessionId=" + sessionid,
                         success: function(data){
-                                $("#players").empty();
-                                $("#players").append("<tr><th>Player</th><th>HP</th><th>X</th><th>Y</th></tr>");
                                 if (data != "") {
-                                        var obj = $.parseJSON(data);
-                                   for (var player in obj) {
-                                        $("#players").append("<tr><td>" +player+ "</td><td>" +obj[player].hp+ "</td><td>"+obj[player].x+ "</td><td>"+obj[player].y+ "</td></tr>");
-                                }
-                                updateCanvas(obj);     
+                                    var obj = $.parseJSON(data);
+                                    updateCanvas(obj);
                                 }
                                 
                         }
@@ -58,7 +53,7 @@ $(document).ready(function() {
         $( ".monster" ).on( "click", function() {
                 d = new Date();
                 var timenow = d.getTime();
-                var nick = $("#gamemaster").val();
+                var nick = $("#nick").text();
                 var roominput = $("#roominput").val();
                 var enemytype = $(this).val();
                 if (timenow - timethen > 3000) {

@@ -48,14 +48,12 @@ if (!isset($_GET['s'])) {
 			?>
 		</ul>
 	<?php endif;
-	if (isset($_GET['s'])): ?>
-	<table id="players"></table>
-	Your name: <input type=text value="Guest" id="gamemaster"/>
+	if (isset($_GET['s']) && isset($_GET['nick'])): ?>
+	Your name: <div id="nick"><?php echo $_GET['nick']; ?></div>
 	Room: <input type=text value="1" id="roominput"/>
 
 	<button value="1" id="monster1" class="monster"></button>
 	<button value="2" id="monster2" class="monster"></button>
-	<button value="3" id="monster3" class="monster">Monster 3</button>
 	<div id="error"></div>
 	<canvas id="levelmap" width="800" height="600"></canvas>
 	<script src="game.js"></script>
