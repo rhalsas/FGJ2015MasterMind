@@ -8,6 +8,15 @@ $(document).ready(function() {
         var canvas = document.getElementById('levelmap');
         var context = canvas.getContext('2d');
         var playertable = $("#players");
+        var player1Image = loadImage("red_ui_head_64.png"); 
+        var player2Image = loadImage("blue_ui_head_64.png");
+        var player1hp = loadImage("red_ui_hp.png"); 
+        var player2hp = loadImage("blue_ui_hp.png");
+        function loadImage(src) {
+                var image = new Image();
+                image.src = src;
+                return image;
+        }
         function updatePlayerStatus() {	
                 $.ajax({
                         url: "http://galezki.cloudapp.net/backend/api.php?action=getplayerstatus",
@@ -41,7 +50,8 @@ $(document).ready(function() {
                         context.fillText(playerdata[player].hp, i*75+60, 10);
                         i++;
                 }
-                console.log("Updating canvas to show that players are in the X: " + pos_x + " Y: " + pos_y);
+                
+                context.drawImage(player1Image,((pos_x / 6400) * 800) - 32,((pos_y / 4800) * 600) - 32);
 
         }
         $( ".monster" ).on( "click", function() {
