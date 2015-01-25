@@ -57,7 +57,7 @@ if (!isset($_GET['s'])) {
 	<button value="2" id="monster2" class="monster"></button>
 	<button value="3" id="monster3" class="monster">Monster 3</button>
 	<div id="error"></div>
-	<canvas id="levelmap" width="720" height="548"></canvas>
+	<canvas id="levelmap" width="800" height="600"></canvas>
 	<script src="game.js"></script>
 	<?php endif; ?>
 	</body>

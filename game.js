@@ -30,15 +30,18 @@ $(document).ready(function() {
         }
         function updateCanvas(playerdata) {
                 var i = 0;
-                context.clearRect(0, 0, 720, 548);
+                context.clearRect(0, 0, 800, 600);
                 for (var player in playerdata) {
-                        if (player == "player1") var room = playerdata[player].room;
+                        if (player == "player1") {
+                                var pos_x = playerdata[player].x;
+                                var pos_y = playerdata[player].y;
+                        }
                         context.fillStyle = "#FFF";
                         context.fillText(player, i*75+10, 10);
                         context.fillText(playerdata[player].hp, i*75+60, 10);
                         i++;
                 }
-                console.log("Updating canvas to show that players are in the " + room);
+                console.log("Updating canvas to show that players are in the X: " + pos_x + " Y: " + pos_y);
 
         }
         $( ".monster" ).on( "click", function() {
