@@ -8,24 +8,6 @@ $db = new PDO($dsn, $user, $password, array(PDO::ATTR_PERSISTENT => true));
 
 $session = isset($_GET['s']) ? $_GET['s'] : "";
 
-if (!isset($_GET['s'])) {
-		try {
-			$stmt = $db->prepare('SELECT session_id FROM fgj_existing_games ORDER BY created_at DESC');
-		}
-		catch (PDOException $e) {
-			echo 'Connection failed: ' . $e->getMessage();
-		}
-
-		$stmt->execute();
-
-		$resultarray = array();
-		while ($row = $stmt->fetch()) {
-			$sessionid = array('session_id' => $row['session_id']);
-			$sessionarray[] = $sessionid;
-
-		}
-
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,24 +25,41 @@ if (!isset($_GET['s'])) {
 	</p>
 	Nick: <input type=text id="nick2" value="doge"/><br/>
 	Last game sessions:
-		<ul>
-			<?php
-				// Show available game sessions
-				foreach ($sessionarray as $session)
-				{
-					?><li><button class="sid"><?php echo $session["session_id"];?></button></li><?php
-				}
-			?>
-		</ul>
+		<ul id="sessionlist"></ul>
 		<script>
-			$( ".sid" ).on( "click", function() {
+			var count = 10;
+			
+			var sessionPoller = setInterval(getSessions, 30000);
+			$(document).on( "click", ".sid", function() {
 				var nicktest = $('#nick2').val();
 				if (nicktest == nicktest.replace(/[^a-z0-9]/gi,'')) {
+					clearInterval(sessionPoller);
 					window.location.assign("?nick=" + nicktest + "&s=" + $(this).text());
 				} else {
 					$("#nickerror").html("Pls check your nick, characters must be between a-z and 0-9");
 				}
 			});
+			function getSessions() {
+				$.ajax({
+                    url: "http://galezki.cloudapp.net/backend/api.php?action=getsessions",
+                    type: 'POST',
+                    data: 'count=' + count,
+                    success: function(data){
+						if (data != "") {
+							$("#sessionlist").empty();
+							var obj = $.parseJSON(data);
+							for (var session in obj) {
+								var session_id = obj[session].session_id;
+								var created_at = obj[session].created_at;
+
+								$("<li><button class=sid>" + session_id + "</button> " + created_at + "</li>").appendTo("#sessionlist");
+							}
+						}
+                            
+                    }
+                });
+			}
+			getSessions();
 		</script>
 	<?php endif;
 	if (isset($_GET['s']) && isset($_GET['nick'])): ?>
