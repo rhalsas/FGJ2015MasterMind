@@ -1,48 +1,54 @@
-#monster1 {
-	background: url("spawn_melee_green.png");
-	height: 64px;
-	width: 64px;
-	display: inline-block;
-}
-#monster2 {
-	background: url("spawn_ranged_green.png");
-	height: 64px;
-	width: 64px;
-	display: inline-block;
-}
-#levelmap {
-	background: url("level_blueprint.png");
+.top-buffer{
+	margin-top: 30px;
 }
 
-#nick2 {
-	height:64px;
+.top-buffer-max{
+	margin-top: 100px;
 }
 
-#container {
-	width: 600px;
-	max-height: 64px;
-	display: block;
-	margin:5px;
+#sessionlist li{
+	margin: 0 0 3px 0;
+}
+
+#manualAttackId{
+	margin-top: 150px;
 }
 
 
-#roominput {
-	vertical-align: top;
-	height:64px;
-	display: inline-block;
-	font-size: 24px;
+#attackButton{
+	margin-top: 5px;
 }
 
-#sessionlist {
-	margin-left: 6px;
-	margin-top: 6px;
-
+body {
+	background-color: #040506;
+	color: #ecf0f1;
 }
 
-td {
-	padding: 3px;
+.container{
+	background: #1F2627;
+    border-radius: 10px;
 }
 
-#refresh {
-	margin-left: 6px;
+input{
+   text-align:center;
 }
+
+.btn{
+	background-color: #c0392b;
+	border-color: #672C25;
+	color: #ecf0f1; 
+}
+
+.modal-title{
+	color: #2c3e50;
+}
+
+
+.modal-body{
+	color: #2c3e50;
+}
+
+#mainJumbo{
+	background: url('front.png') no-repeat center center;
+}
+
