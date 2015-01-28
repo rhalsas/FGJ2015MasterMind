@@ -14,8 +14,10 @@ $session = isset($_GET['s']) ? $_GET['s'] : "";
 	<head>
 		<meta charset="utf-8"/>
 		<title>Game Master for dogegamu</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
 		<script src="jquery-2.1.3.min.js"></script>
+		<script src="bootstrap-3.3.2/css/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="bootstrap-3.3.2/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
 	<?php if (!isset($_GET['s'])): ?>
@@ -24,10 +26,10 @@ $session = isset($_GET['s']) ? $_GET['s'] : "";
 	Please write your nick here before entering session (characters a-z and 0-9):
 	</p>
 	Nick: <input type=text id="nick2" value="doge"/><br/>
-	Last game sessions:
-		<ul id="sessionlist"></ul>
+	<h3>Last game sessions (refreshes every 30 seconds)</h3>
+		<button id="refresh" type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-refresh" aria-hidden="false"></span></button>
+		<table id="sessionlist"></table>
 		<script>
-			var count = 10;
 			
 			var sessionPoller = setInterval(getSessions, 30000);
 			$(document).on( "click", ".sid", function() {
@@ -39,7 +41,12 @@ $session = isset($_GET['s']) ? $_GET['s'] : "";
 					$("#nickerror").html("Pls check your nick, characters must be between a-z and 0-9");
 				}
 			});
+
+			$(document).on( "click", "#refresh", function() {
+				getSessions();
+			});
 			function getSessions() {
+				var count = 10;
 				$.ajax({
                     url: "http://galezki.cloudapp.net/backend/api.php?action=getsessions",
                     type: 'POST',
@@ -52,7 +59,7 @@ $session = isset($_GET['s']) ? $_GET['s'] : "";
 								var session_id = obj[session].session_id;
 								var created_at = obj[session].created_at;
 
-								$("<li><button class=sid>" + session_id + "</button> " + created_at + "</li>").appendTo("#sessionlist");
+								$("<tr><td><button class='sid btn btn-default'>" + session_id + "</button></td><td>" + created_at + "</td></tr>").appendTo("#sessionlist");
 							}
 						}
                             
