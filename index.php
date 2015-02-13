@@ -1,7 +1,4 @@
 
-<?php
-
-?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -87,22 +84,28 @@
 	Your name: <div id="nick"><?php echo $_GET['nick']; ?></div>
 	<p>Select spawn point and press the enemy type you want to spawn to the game</p>
 	<div id="container">
-	<select id="roominput" name="roomselect">
-		<option>1</option>
-		<option>2</option>
-		<option>3</option>
-		<option>4</option>
-		<option>5</option>
-		<option>6</option>
-		<option>7</option>
-		<option>8</option>
-		<option>9</option>
-		<option>10</option>
-	</select>
-	<button value="1" id="monster1" class="monster"></button>
-	<button value="2" id="monster2" class="monster"></button>
+    <div class="btn-group">
+    <button type="button" id="roominput" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        1 <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">6</a></li>
+        <li><a href="#">7</a></li>
+        <li><a href="#">8</a></li>
+        <li><a href="#">9</a></li>
+        <li><a href="#">10</a></li>
+    </ul>
+    </div>
+	<button type="button" value="1" id="monster1" class="monster btn btn-xs"><img src="spawn_melee_green.png"/></button>
+	<button type="button" value="2" id="monster2" class="monster btn btn-xs"><img src="spawn_ranged_green.png"/></button>
 	</div>
 	<div id="error"></div>
+    <canvas id="hpcanvas" width="800" height="100"></canvas>
 	<canvas id="levelmap" width="800" height="600"></canvas>
 	<script src="game.js"></script>
 	<?php endif; ?>

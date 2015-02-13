@@ -20,7 +20,7 @@ $(document).on( "click", "#attackButton", function() {
 	}
 	else{
 		$('#popUp').find('.modal-title').text('Invalid attack Id');
-        $('#popUp').find('.modal-body h4').text('Please make sure you entered your attack id correctyly');
+        $('#popUp').find('.modal-body h4').text('Please make sure you entered your attack id correctly');
         $('#popUp').modal();
 	}
 	

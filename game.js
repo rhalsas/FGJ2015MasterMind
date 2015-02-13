@@ -4,14 +4,19 @@ $(document).ready(function() {
         var timethen = d.getTime();
         var url = window.location.href;
         var sessionidstart = url.lastIndexOf("=");
-        var sessionid = url.substr(sessionidstart + 1);
+        var sessionid = url.substr(sessionidstart + 1, 5);
         var canvas = document.getElementById('levelmap');
         var context = canvas.getContext('2d');
-        var playertable = $("#players");
+        var hpcanvas = document.getElementById('hpcanvas');
+        var hpcontext = hpcanvas.getContext('2d');
         var player1Image = loadImage("red_ui_head_64.png"); 
         var player2Image = loadImage("blue_ui_head_64.png");
+        var player3Image = loadImage("green_ui_head_64.png"); 
+        var player4Image = loadImage("pink_ui_head_64.png");
         var player1hp = loadImage("red_ui_hp.png"); 
         var player2hp = loadImage("blue_ui_hp.png");
+        var player3hp = loadImage("green_ui_hp.png"); 
+        var player4hp = loadImage("pink_ui_hp.png");
         function loadImage(src) {
                 var image = new Image();
                 image.src = src;
@@ -40,21 +45,38 @@ $(document).ready(function() {
                         var pos_x = playerdata[player].x;
                         var pos_y = playerdata[player].y;
 
-                        context.drawImage(player1hp, 250, 2, playerdata[player].hp, 24);
+                        hpcontext.drawImage(player1hp, 45, 80, playerdata[player].hp, 5);
                         context.drawImage(player1Image,((pos_x / 6400) * 800) - 32,((pos_y / 4800) * 600) - 32);
                     }
-                    else{
-                        context.drawImage(player2hp, 370, 2, playerdata[player].hp, 24);
+                    else if (player == "player2") {
+                        hpcontext.drawImage(player2hp, 245, 80, playerdata[player].hp, 5);
+                    } 
+                    else if (player == "player3") {
+                        hpcontext.drawImage(player3hp, 445, 80, playerdata[player].hp, 5);
+                    } 
+                    else if (player == "player4") {
+                        hpcontext.drawImage(player4hp, 645, 80, playerdata[player].hp, 5);
                     }
                 }
-                context.drawImage(player1Image,225,12,24,24);
-                context.drawImage(player2Image,350,12,24,24);
+                hpcontext.drawImage(player1Image,60,12);
+                hpcontext.drawImage(player2Image,260,12);
+                hpcontext.drawImage(player3Image,460,12);
+                hpcontext.drawImage(player4Image,660,12);
+
+
         }
+        $(".dropdown-menu li a").click(function(){
+
+            $(".btn:first-child").html($(this).text() + ' <span class="caret"></span>');
+            $(".btn:first-child").val($(this).text());
+
+        });
+
         $( ".monster" ).on( "click", function() {
                 d = new Date();
                 var timenow = d.getTime();
                 var nick = $("#nick").text();
-                var roominput = $("#roominput option:selected").text();
+                var roominput = $("#roominput").text().trim();
                 var enemytype = $(this).val();
                 if (timenow - timethen > 3000) {
                         $("#error").html(" ");

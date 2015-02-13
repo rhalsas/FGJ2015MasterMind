@@ -52,3 +52,18 @@ input{
 	background: url('front.png') no-repeat center center;
 }
 
+#levelmap {
+	background: url('level_blueprint.png') no-repeat bottom;
+	border: 1px solid red;
+}
+
+#hpcanvas {
+	border: 1px solid red;
+}
+
+.monster {
+	background-color: gray;
+}
+#roominput {
+	background-color: gray;
+}
