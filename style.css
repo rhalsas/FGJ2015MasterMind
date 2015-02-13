@@ -1,48 +1,69 @@
-#monster1 {
-	background: url("spawn_melee_green.png");
-	height: 64px;
-	width: 64px;
-	display: inline-block;
+.top-buffer{
+	margin-top: 30px;
 }
-#monster2 {
-	background: url("spawn_ranged_green.png");
-	height: 64px;
-	width: 64px;
-	display: inline-block;
+
+.top-buffer-max{
+	margin-top: 100px;
 }
+
+#sessionlist li{
+	margin: 0 0 3px 0;
+}
+
+#manualAttackId{
+	margin-top: 150px;
+}
+
+
+#attackButton{
+	margin-top: 5px;
+}
+
+body {
+	background-color: #040506;
+	color: #ecf0f1;
+}
+
+.container{
+	background: #1F2627;
+    border-radius: 10px;
+}
+
+input{
+   text-align:center;
+}
+
+.btn{
+	background-color: #c0392b;
+	border-color: #672C25;
+	color: #ecf0f1; 
+}
+
+.modal-title{
+	color: #2c3e50;
+}
+
+
+.modal-body{
+	color: #2c3e50;
+}
+
+#mainJumbo{
+	background: url('front.png') no-repeat center center;
+}
+
 #levelmap {
-	background: url("level_blueprint.png");
+	background: url('level_blueprint.png') no-repeat bottom;
+	border: 1px solid red;
 }
 
-#nick2 {
-	height:64px;
+#hpcanvas {
+	border: 1px solid red;
 }
 
-#container {
-	width: 600px;
-	max-height: 64px;
-	display: block;
-	margin:5px;
+.monster {
+	background-color: gray;
 }
-
-
 #roominput {
-	vertical-align: top;
-	height:64px;
-	display: inline-block;
-	font-size: 24px;
-}
-
-#sessionlist {
-	margin-left: 6px;
-	margin-top: 6px;
-
-}
-
-td {
-	padding: 3px;
-}
-
-#refresh {
-	margin-left: 6px;
+	background-color: gray;
 }

@@ -1,94 +1,111 @@
 
-<?php
-/* Connect to an ODBC database using driver invocation */
-$dsn = 'mysql:dbname=SupraDB;host=localhost';
-$user = 'root';
-$password = 'k01r4';
-$db = new PDO($dsn, $user, $password, array(PDO::ATTR_PERSISTENT => true));
-
-$session = isset($_GET['s']) ? $_GET['s'] : "";
-
-?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8"/>
-		<title>Game Master for dogegamu</title>
+		<title>Game Master for Gulle</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="jquery-2.1.3.min.js"></script>
-		<script src="bootstrap-3.3.2/css/bootstrap.min.js"></script>
+        <script src="moment.js"></script>
+		<script src="bootstrap-3.3.2/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="bootstrap-3.3.2/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
 	<?php if (!isset($_GET['s'])): ?>
-	<div id="nickerror"></div>
-	<p>
-	Please write your nick here before entering session (characters a-z and 0-9):
-	</p>
-	Nick: <input type=text id="nick2" value="doge"/><br/>
-	<h3>Last game sessions (refreshes every 30 seconds)</h3>
-		<button id="refresh" type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-refresh" aria-hidden="false"></span></button>
-		<table id="sessionlist"></table>
-		<script>
-			
-			var sessionPoller = setInterval(getSessions, 30000);
-			$(document).on( "click", ".sid", function() {
-				var nicktest = $('#nick2').val();
-				if (nicktest == nicktest.replace(/[^a-z0-9]/gi,'')) {
-					clearInterval(sessionPoller);
-					window.location.assign("?nick=" + nicktest + "&s=" + $(this).text());
-				} else {
-					$("#nickerror").html("Pls check your nick, characters must be between a-z and 0-9");
-				}
-			});
+	
+    <div class="container text-center">
 
-			$(document).on( "click", "#refresh", function() {
-				getSessions();
-			});
-			function getSessions() {
-				var count = 10;
-				$.ajax({
-                    url: "http://galezki.cloudapp.net/backend/api.php?action=getsessions",
-                    type: 'POST',
-                    data: 'count=' + count,
-                    success: function(data){
-						if (data != "") {
-							$("#sessionlist").empty();
-							var obj = $.parseJSON(data);
-							for (var session in obj) {
-								var session_id = obj[session].session_id;
-								var created_at = obj[session].created_at;
+        <br>
 
-								$("<tr><td><button class='sid btn btn-default'>" + session_id + "</button></td><td>" + created_at + "</td></tr>").appendTo("#sessionlist");
-							}
-						}
-                            
-                    }
-                });
-			}
-			getSessions();
-		</script>
+        <div id="mainJumbo" class="jumbotron">
+            <h2>Gulle's Revenge: Gamemaster setup</h2>
+        </div>
+
+        <div class="row top-buffer">           
+            <div class="col-lg-12">
+                <input id="nick2" type="text" class="form-control" placeholder="Enter your nick here!(characters a-z and 0-9)">
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4>Please write your nick here before attacking a game</h4>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row top-buffer">
+            <div class="col-lg-6 text-center">
+                <h4>Pick one of the latest attack ID:s</h4>
+                <ul class="list-unstyled" id="sessionlist"></ul>  
+            </div>
+
+            <div id="manualAttackId" class="col-lg-6 text-center">
+                <h4>Or enter attack ID manually:</h4>
+                <input id="manualId" type="text" class="form-control" placeholder="Attack ID">
+                <button id="attackButton" type="button" class="btn btn-default btn-lg">Attack!</span></button>
+            </div>
+
+        </div>
+
+        <div class="footer top-buffer">
+            <h5>List of latest games is refreshed every 30 seconds</h5> 
+            <button id="refresh" type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-refresh" aria-hidden="false"></span> Refresh now</button>
+        </div>
+
+        
+    	
+    	
+		        <!--pop-up -->
+        <div id="popUp" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title text-center"> </h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4> </h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		<script src="landingPage.js"></script>
+    </div><!-- end container -->
 	<?php endif;
 	if (isset($_GET['s']) && isset($_GET['nick'])): ?>
 	Your name: <div id="nick"><?php echo $_GET['nick']; ?></div>
 	<p>Select spawn point and press the enemy type you want to spawn to the game</p>
 	<div id="container">
-	<select id="roominput" name="roomselect">
-		<option>1</option>
-		<option>2</option>
-		<option>3</option>
-		<option>4</option>
-		<option>5</option>
-		<option>6</option>
-		<option>7</option>
-		<option>8</option>
-		<option>9</option>
-		<option>10</option>
-	</select>
-	<button value="1" id="monster1" class="monster"></button>
-	<button value="2" id="monster2" class="monster"></button>
+    <div class="btn-group">
+    <button type="button" id="roominput" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        1 <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">6</a></li>
+        <li><a href="#">7</a></li>
+        <li><a href="#">8</a></li>
+        <li><a href="#">9</a></li>
+        <li><a href="#">10</a></li>
+    </ul>
+    </div>
+	<button type="button" value="1" id="monster1" class="monster btn btn-xs"><img src="spawn_melee_green.png"/></button>
+	<button type="button" value="2" id="monster2" class="monster btn btn-xs"><img src="spawn_ranged_green.png"/></button>
 	</div>
 	<div id="error"></div>
+    <canvas id="hpcanvas" width="800" height="100"></canvas>
 	<canvas id="levelmap" width="800" height="600"></canvas>
 	<script src="game.js"></script>
 	<?php endif; ?>
